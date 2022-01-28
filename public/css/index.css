@@ -1,0 +1,51 @@
+.main--header {
+  text-align: center;
+}
+
+.posts--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.post--card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #252525;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: white;
+  box-shadow: 0px 0px 20px 4px rgba(0,0,0,0.7);
+}
+
+.post--card > h3 {
+  color: #f45d48;
+  font-size: 1.1rem;
+}
+
+.post--card > p {
+  font-size: 1rem;
+}
+
+.post--card > small {
+  font-size: .8rem;
+}
+
+.post--image__container {
+  overflow: hidden;
+  width: 20rem;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.post--image__container > img {
+  max-width: 100%;
+  max-height: 10rem;
+}
