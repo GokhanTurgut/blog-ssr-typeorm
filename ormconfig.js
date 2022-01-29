@@ -20,8 +20,8 @@ module.exports = {
   },
   // Only necessary for servers that require SSL to be able to connect to such as PlanetScale
   // ca-certificates.crt file needs to be on root directory to able to read and send as certification
-  ssl: {
-    ca: fs.readFileSync(__dirname + "/ca-certificates.crt"),
-    mode: "VERIFY_IDENTITY",
-  },
+  // ssl: {
+  //   ca: fs.readFileSync(__dirname + "/ca-certificates.crt"),
+  //   mode: "VERIFY_IDENTITY",
+  // },
 };
