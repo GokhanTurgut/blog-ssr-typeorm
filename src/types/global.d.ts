@@ -14,12 +14,12 @@ declare namespace NodeJS {
 // Type declarations for our request object
 declare namespace Express {
   export interface Request {
-      userId?: string;
-      username?: string;
+      userId: string;
+      username: string;
       session: {
-        browser?: string;
-        user?: string;
-        destroy?(fn: (err: any) => void): void;
+        browser: string;
+        user: string;
+        destroy(fn: (err: any) => void): void;
       }
   }
 }

@@ -45,7 +45,7 @@ import { User } from "./User";
 
 @Entity()
 export class Post {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
@@ -54,10 +54,10 @@ export class Post {
   @Column()
   description: string;
 
-  @Column()
+  @Column("text")
   content: string;
 
-  @Column()
+  @Column("text")
   sanitizedContent: string;
 
   @Column()

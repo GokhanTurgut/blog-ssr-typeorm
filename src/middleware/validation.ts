@@ -3,11 +3,15 @@ import { body, check } from "express-validator";
 export const postValidators = [
   body("title")
     .trim()
-    .isLength({ min: 3 })
+    .isLength({ min: 3, max: 250 })
     .withMessage("Title must be at least 3 characters long."),
+  body('imageURL')
+    .trim()
+    .isLength({ max: 250 })
+    .withMessage("URL can not exceed 250 characters."),
   body("description")
     .trim()
-    .isLength({ min: 5 })
+    .isLength({ min: 5, max: 250 })
     .withMessage("Description must be at least 5 characters long."),
   body("content")
     .trim()
@@ -18,14 +22,16 @@ export const postValidators = [
 export const signupValidators = [
   check("username")
     .trim()
+    .isLength({ min: 5, max: 250 })
     .isAlphanumeric(),
   check("email")
+    .isLength({ max: 250 })
     .isEmail()
     .withMessage("Email is not valid!")
     .normalizeEmail(),
   check("password")
     .trim()
-    .isLength({ min: 6 })
+    .isLength({ min: 6, max: 250 })
     .withMessage(
       "Password must contain numbers and letters and must be at least 6 characters long."
     )
@@ -44,7 +50,7 @@ export const loginValidators = [
   check("username").trim().isAlphanumeric(),
   check("password")
     .trim()
-    .isLength({ min: 6 })
+    .isLength({ min: 6, max: 250 })
     .withMessage(
       "Password must contain numbers and letters and must be at least 6 characters long."
     )

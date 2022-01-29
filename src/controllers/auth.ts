@@ -38,20 +38,21 @@ const getLogin: RequestHandler = (req, res) => {
 const postSignUp: RequestHandler = async (req, res) => {
   const { name, surname, username, email, password, confirmPassword } =
     req.body;
+  const oldInput = {
+    name,
+    surname,
+    username,
+    email,
+    password,
+    confirmPassword,
+  };
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).render("auth/signUp", {
       pageTitle: "Sign up",
       errorMessage: errors.array()[0].msg,
-      oldInput: {
-        name,
-        surname,
-        username,
-        email,
-        password,
-        confirmPassword,
-      },
+      oldInput,
     });
   }
   const userRepo = getRepository(User);
@@ -60,14 +61,7 @@ const postSignUp: RequestHandler = async (req, res) => {
     return res.status(422).render("auth/signUp", {
       pageTitle: "Sign up",
       errorMessage: "Username already exists!",
-      oldInput: {
-        name,
-        surname,
-        username,
-        email,
-        password,
-        confirmPassword,
-      },
+      oldInput,
     });
   }
   const userWithEmail = await userRepo.findOne({ email });
@@ -75,14 +69,7 @@ const postSignUp: RequestHandler = async (req, res) => {
     return res.status(422).render("auth/signUp", {
       pageTitle: "Sign up",
       errorMessage: "Email already exists!",
-      oldInput: {
-        name,
-        surname,
-        username,
-        email,
-        password,
-        confirmPassword,
-      },
+      oldInput,
     });
   }
 
@@ -104,17 +91,14 @@ const postSignUp: RequestHandler = async (req, res) => {
 
 const postLogin: RequestHandler = async (req, res) => {
   const { username, password } = req.body;
+  const oldInput = { username, password };
 
   const errors = validationResult(req);
-  console.log(errors);
   if (!errors.isEmpty()) {
     return res.status(422).render("auth/login", {
       pageTitle: "Login",
       errorMessage: errors.array()[0].msg,
-      oldInput: {
-        username,
-        password,
-      },
+      oldInput,
     });
   }
   try {
@@ -124,10 +108,7 @@ const postLogin: RequestHandler = async (req, res) => {
       return res.status(401).render("auth/login", {
         pageTitle: "Login",
         errorMessage: "Invalid username!",
-        oldInput: {
-          username,
-          password,
-        },
+        oldInput,
       });
     }
     const doMatch = await bcrypt.compare(password, user.password);
@@ -135,10 +116,7 @@ const postLogin: RequestHandler = async (req, res) => {
       return res.status(401).render("auth/login", {
         pageTitle: "Login",
         errorMessage: "Invalid password!",
-        oldInput: {
-          username,
-          password,
-        },
+        oldInput,
       });
     }
     // Creating our JWT token with 2h expiration time
