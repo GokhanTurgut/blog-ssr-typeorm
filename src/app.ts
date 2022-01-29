@@ -28,6 +28,9 @@ const SESSION_SECRET = process.env.SESSION_SECRET;
 
 const app = express();
 
+// Creating connection to our MySQL database with the help
+// from TypeORM using the configuration options inside our
+// ormconfig.js file
 createConnection().then(() => {
   app.set("view engine", "ejs");
 
@@ -37,8 +40,9 @@ createConnection().then(() => {
   app.use(express.static(path.join(__dirname, "..", "public")));
   // Middleware for parsing cookies inside requests
   app.use(cookieParser());
-  // Middleware for creating our session with a cookie 2 hours long
+  // Getting our session repository based on our Session entity
   const repository = getRepository(Session);
+  // Middleware for creating our session with a cookie 2 hours long
   app.use(
     session({
       secret: SESSION_SECRET,
@@ -46,7 +50,7 @@ createConnection().then(() => {
       saveUninitialized: false,
       store: new TypeormStore({ repository }),
       cookie: {
-        maxAge: 1000 * 60 * 60 * 2,
+        maxAge: 1000 * 60 * 60 * 2, // 2h
         httpOnly: true,
       },
     })
@@ -66,9 +70,7 @@ createConnection().then(() => {
   // Page not found error handler
   app.use(get404);
 
-  // Connecting to our database through typeorm
-  // and start listening on our chosen port
-
+  // Start listening on our chosen port
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
   });

@@ -1,5 +1,9 @@
 import { body, check } from "express-validator";
 
+// Validation functions arrays for checking the user data
+// and making sure that the data fulfills the requirements from
+// our entities
+
 export const postValidators = [
   body("title")
     .trim()

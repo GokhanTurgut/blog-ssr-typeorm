@@ -55,6 +55,7 @@ const postSignUp: RequestHandler = async (req, res) => {
       oldInput,
     });
   }
+  // Checking that the username is unique
   const userRepo = getRepository(User);
   const userWithUsername = await userRepo.findOne({ username });
   if (userWithUsername) {
@@ -64,6 +65,7 @@ const postSignUp: RequestHandler = async (req, res) => {
       oldInput,
     });
   }
+  // Checking that the email is unique
   const userWithEmail = await userRepo.findOne({ email });
   if (userWithEmail) {
     return res.status(422).render("auth/signUp", {
